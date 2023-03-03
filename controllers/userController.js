@@ -50,7 +50,7 @@ const login = async (req, res) => {
 
 const searchusers = async (req, res) => {
   const query = req.query;
-  console.log(query);
+  // console.log(query);
 
   const findusers = await usermodel.find({
     $and: [
@@ -62,4 +62,12 @@ const searchusers = async (req, res) => {
   console.log(findusers);
 };
 
-module.exports = { signup, login, searchusers };
+const fetchuser = (req, res) => {
+  try {
+    return res.status(200).json({ user: req.user });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+module.exports = { signup, login, searchusers, fetchuser };

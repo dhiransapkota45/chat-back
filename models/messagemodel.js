@@ -4,11 +4,12 @@ const messageSchema = mongoose.Schema(
   {
     sender: {
       type: mongoose.Schema.Types.ObjectId,
-      content: { type: String, trim: true },
-      chat: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "chatmodel",
-      },
+      ref: "usermodel",
+    },
+    content: { type: String, trim: true },
+    chat: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "chatmodel",
     },
   },
   { timestamps: true }
