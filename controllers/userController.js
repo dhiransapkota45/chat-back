@@ -49,17 +49,19 @@ const login = async (req, res) => {
 };
 
 const searchusers = async (req, res) => {
-  const query = req.query;
-  // console.log(query);
-
-  const findusers = await usermodel.find({
-    $and: [
-      { _id: { $ne: req.user._id } },
-      { username: { $regex: req.query.search, $options: 1 } },
-    ],
-  });
-
-  console.log(findusers);
+  try {
+    const findusers = await usermodel
+      .find({
+        $and: [
+          { _id: { $ne: req.user._id } },
+          { username: { $regex: req.query.search, $options: 1 } },
+        ],
+      })
+      .select("-password");
+    return res.status(200).json({ users: findusers });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const fetchuser = (req, res) => {

@@ -9,16 +9,16 @@ const createchat = async (req, res) => {
     }
 
     const checkIfChatExists = await chatmodel
-      .find({
+      .findOne({
         isGroupChat: false,
         $and: [{ users: userid }, { users: req.user._id }],
       })
       .populate("users", "-password")
       .populate("latestMessage");
 
-    // console.log(checkIfChatExists);
+    console.log(checkIfChatExists);
 
-    if (checkIfChatExists.length > 0) {
+    if (checkIfChatExists) {
       return res
         .status(200)
         .json({ msg: "chat found", fullchat: checkIfChatExists });
