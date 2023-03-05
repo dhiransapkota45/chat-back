@@ -26,12 +26,10 @@ const createMessage = async (req, res) => {
 
     console.log(populategeneratedMessage);
 
-    return res
-      .status(201)
-      .json({
-        msg: "message has been created successfully",
-        createdmessage: populategeneratedMessage,
-      });
+    return res.status(201).json({
+      msg: "message has been created successfully",
+      createdmessage: populategeneratedMessage,
+    });
   } catch (error) {
     console.log(error);
   }
@@ -44,8 +42,8 @@ const getallMessage = async (req, res) => {
         chat: req.params.chatid,
       })
       .populate("sender", "name image")
-      .populate("chat");
-    // .sort({ createdAt: -1 });
+      .populate("chat")
+      .sort({ createdAt: -1 });
 
     return res
       .status(200)
